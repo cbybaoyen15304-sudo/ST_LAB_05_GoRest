@@ -21,10 +21,14 @@ jobs:
       - name: Install Newman
         run: npm install -g newman
 
+      
       - name: Run API tests
         env:
           GOREST_TOKEN: ${{ secrets.GOREST_TOKEN }}
         run: |
           newman run Collection.json \
             -e Environment.json \
-            -d data/users.csv
+            --env-var "baseUrl=https://gorest.co.in/public/v2" \
+            --env-var "token=$GOREST_TOKEN" \
+            -d users.csv
+
